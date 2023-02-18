@@ -25,9 +25,8 @@ public class Gmail extends Email {
     public Gmail(String emailId, int inboxCapacity) {
         super(emailId);
         this.inboxCapacity = inboxCapacity;
-    }
-    public Gmail(String emailId){
-        super(emailId);
+        Inbox = new ArrayList<>();
+        Trash = new ArrayList<>();
     }
 
     public void receiveMail(Date date, String sender, String message){
@@ -36,11 +35,12 @@ public class Gmail extends Email {
         // 1. Each mail in the inbox is distinct.
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
         Mail mail = new Mail(date, sender, message);
-        if(Inbox.size()<inboxCapacity){
-            Inbox.add(mail);
+        if(this.Inbox.size()<inboxCapacity){
+            this.Inbox.add(mail);
         }else{
             Trash.add(Inbox.get(0));
-            Inbox.remove(0);
+            this.Inbox.remove(0);
+            this.Inbox.add(mail);
         }
     }
 
